@@ -57,7 +57,7 @@ class DioLink extends Link {
   /// other potentially non-serializable fields like callbacks or the cancel token.
   final bool serializableErrors;
 
-  /// Progress callback for each request also multipart request
+  /// Progress callback for multipart request
   final OnSendProgress? onSendProgress;
 
   DioLink(
@@ -194,6 +194,7 @@ class DioLink extends Link {
           ),
         );
       } else {
+        final isMultipart = body is dio.FormData;
         res = await client.post<dynamic>(
           endpoint,
           cancelToken: cancelToken,
@@ -202,7 +203,7 @@ class DioLink extends Link {
             responseType: dio.ResponseType.json,
             headers: headers,
           ),
-          onSendProgress: onSendProgress,
+          onSendProgress: !isMultipart ? null : onSendProgress,
         );
       }
       if (res.data is Map<String, dynamic> == false) {
