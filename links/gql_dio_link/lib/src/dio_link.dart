@@ -77,7 +77,7 @@ class DioLink extends Link {
       request: request,
       headers: <String, String>{
         dio.Headers.acceptHeader: "*/*",
-        dio.Headers.contentTypeHeader: dio.Headers.jsonContentType,
+        // dio.Headers.contentTypeHeader: dio.Headers.jsonContentType,
         ...defaultHeaders,
         ..._getHttpLinkHeaders(request),
       },
